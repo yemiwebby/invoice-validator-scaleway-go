@@ -35,10 +35,10 @@ jobs:
             echo "NAMESPACE ID: ${SCW_NAMESPACE_ID}"
             echo "FUNCTION NAME: ${SCW_FUNCTION_NAME}"
 
-            scw config set access-key "$SCW_ACCESS_KEY"
-            # scw config set secret-key "$SCW_SECRET_KEY"
-            scw config set default-region "$SCW_DEFAULT_REGION"
-            scw config set default-project-id "$SCW_DEFAULT_PROJECT_ID"
+            scw config set access-key="$SCW_ACCESS_KEY"
+            scw config set secret-key="$SCW_SECRET_KEY"
+            scw config set default-region="$SCW_DEFAULT_REGION"
+            scw config set default-project-id="$SCW_DEFAULT_PROJECT_ID"
       - run:
           name: Build and package function
           command: |
