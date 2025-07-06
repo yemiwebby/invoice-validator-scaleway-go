@@ -1,0 +1,52 @@
+version: 2.1
+
+executors:
+  go-executor:
+    docker:
+      - image: cimg/go:1.24.4
+    working_directory: ~/project
+
+jobs:
+  test:
+    executor: go-executor
+    steps:
+      - checkout
+      - run: go mod tidy
+      - run: go test ./...
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Install Scaleway CLI
+          command: |
+            curl -sL https://raw.githubusercontent.com/scaleway/scaleway-cli/main/install.sh | bash
+            sudo mv ./scw /usr/local/bin/scw
+            scw version
+      - run:
+          name: Authenticate with Scaleway
+          command: |
+            scw config set access-key $SCW_ACCESS_KEY
+            scw config set secret-key $SCW_SECRET_KEY
+            scw config set default-region $SCW_DEFAULT_REGION
+      - run:
+          name: Build and package function
+          command: |
+            zip -r function.zip handler.go go.mod go.sum
+      - run:
+          name: Deploy to Scaleway Functions
+          command: |
+            scw function deploy name=$SCW_FUNCTION_NAME \
+              namespace-id=$SCW_NAMESPACE_ID \
+              runtime=go124 \
+              zip-file=function.zip
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
