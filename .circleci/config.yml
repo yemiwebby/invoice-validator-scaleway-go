@@ -33,6 +33,7 @@ jobs:
             echo "secret_key: $SCW_SECRET_KEY" >> /home/circleci/.config/scw/config.yaml
             echo "default_region: $SCW_DEFAULT_REGION" >> /home/circleci/.config/scw/config.yaml
             echo "default_project_id: $SCW_DEFAULT_PROJECT_ID" >> /home/circleci/.config/scw/config.yaml
+            echo "default_organization_id: $SCW_DEFAULT_ORGANIZATION_ID" >> /home/circleci/.config/scw/config.yaml
             echo "send_telemetry: false" >> /home/circleci/.config/scw/config.yaml
 
       - run:
