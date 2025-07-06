@@ -25,16 +25,11 @@ jobs:
             curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
             scw version
       - run:
+          name: Prepare Scaleway config directory
+          command: mkdir -p /home/circleci/.config/scw
+      - run:
           name: Authenticate with Scaleway
           command: |
-            echo "ACCESS KEY: ${SCW_ACCESS_KEY}x" | sed 's/x$//'
-            echo "SECRET KEY: ${SCW_SECRET_KEY}x" | sed 's/x$//'
-            echo "REGION: ${SCW_DEFAULT_REGION}"
-            echo "PROJECT ID: ${SCW_DEFAULT_PROJECT_ID}"
-            echo "ORG ID: ${SCW_DEFAULT_ORGANIZATION_ID}"
-            echo "NAMESPACE ID: ${SCW_NAMESPACE_ID}"
-            echo "FUNCTION NAME: ${SCW_FUNCTION_NAME}"
-
             scw config set access-key="$SCW_ACCESS_KEY"
             scw config set secret-key="$SCW_SECRET_KEY"
             scw config set default-region="$SCW_DEFAULT_REGION"
