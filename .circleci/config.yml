@@ -30,12 +30,12 @@ jobs:
           command: |
             mkdir -p /home/circleci/.config/scw
             cat <<EOF > /home/circleci/.config/scw/config.yaml
-            access_key: $SCW_ACCESS_KEY
-            secret_key: $SCW_SECRET_KEY
-            default_region: $SCW_DEFAULT_REGION
-            default_project_id: $SCW_DEFAULT_PROJECT_ID
-            send_telemetry: false
-            EOF
+access_key: $SCW_ACCESS_KEY
+secret_key: $SCW_SECRET_KEY
+default_region: $SCW_DEFAULT_REGION
+default_project_id: $SCW_DEFAULT_PROJECT_ID
+send_telemetry: false
+EOF
       - run:
           name: Build and package function
           command: |
