@@ -24,16 +24,18 @@ jobs:
           command: |
             curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
             scw version
+
       - run:
-          name: Prepare Scaleway config directory
-          command: mkdir -p /home/circleci/.config/scw
-      - run:
-          name: Authenticate with Scaleway
+          name: Create Scaleway config file
           command: |
-            scw config set access-key="$SCW_ACCESS_KEY"
-            scw config set secret-key="$SCW_SECRET_KEY"
-            scw config set default-region="$SCW_DEFAULT_REGION"
-            scw config set default-project-id="$SCW_DEFAULT_PROJECT_ID"
+            mkdir -p /home/circleci/.config/scw
+            cat <<EOF > /home/circleci/.config/scw/config.yaml
+            access_key: $SCW_ACCESS_KEY
+            secret_key: $SCW_SECRET_KEY
+            default_region: $SCW_DEFAULT_REGION
+            default_project_id: $SCW_DEFAULT_PROJECT_ID
+            send_telemetry: false
+            EOF
       - run:
           name: Build and package function
           command: |
