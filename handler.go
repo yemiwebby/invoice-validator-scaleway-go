@@ -33,18 +33,15 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(errs) > 0 {
-		resp, _ := json.Marshal(map[string]any{
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		json.NewEncoder(w).Encode(map[string]any{
 			"valid":  false,
 			"errors": errs,
 		})
-		w.WriteHeader(http.StatusUnprocessableEntity)
-		w.Write(resp)
 		return
 	}
 
-	// resp, _ := json.Marshal(map[string]bool{"valid": true})
-	json.NewEncoder(w).Encode(map[string]bool{"valid": true})
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	// w.Write(resp)
+	json.NewEncoder(w).Encode(map[string]bool{"valid": true})
 }
