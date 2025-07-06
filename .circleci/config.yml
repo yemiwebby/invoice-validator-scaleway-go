@@ -27,11 +27,12 @@ jobs:
       - run:
           name: Authenticate with Scaleway
           command: |
-            env | grep SCW_
-            echo "Access Key: $SCW_ACCESS_KEY"
-            echo "Secret Key: ${#SCW_SECRET_KEY}"
-            echo "Region: $SCW_DEFAULT_REGION"
-            echo "Project ID: $SCW_DEFAULT_PROJECT_ID"
+            echo "ACCESS KEY: $SCW_ACCESS_KEY"
+            echo "SECRET KEY: $SCW_SECRET_KEY"
+            echo "REGION: $SCW_DEFAULT_REGION"
+            echo "PROJECT ID: $SCW_DEFAULT_PROJECT_ID"
+            echo "NAMESPACE ID: $SCW_NAMESPACE_ID"
+            echo "FUNCTION NAME: $SCW_FUNCTION_NAME"
 
             scw config set access-key "$SCW_ACCESS_KEY"
             scw config set secret-key "$SCW_SECRET_KEY"
