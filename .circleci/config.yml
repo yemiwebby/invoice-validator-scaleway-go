@@ -29,7 +29,7 @@ jobs:
           name: Create Scaleway config file
           command: |
             mkdir -p /home/circleci/.config/scw
-            cat \<<EOF > /home/circleci/.config/scw/config.yaml
+            cat <<EOF > /home/circleci/.config/scw/config.yaml
 access_key: $SCW_ACCESS_KEY
 secret_key: $SCW_SECRET_KEY
 default_region: $SCW_DEFAULT_REGION
