@@ -42,8 +42,9 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, _ := json.Marshal(map[string]bool{"valid": true})
+	// resp, _ := json.Marshal(map[string]bool{"valid": true})
+	json.NewEncoder(w).Encode(map[string]bool{"valid": true})
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write(resp)
+	// w.Write(resp)
 }
