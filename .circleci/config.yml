@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - run: go mod tidy
-      - run: go test ./...
+      - run: go test ./... -v
 
   deploy:
     docker:
@@ -22,8 +22,7 @@ jobs:
       - run:
           name: Install Scaleway CLI
           command: |
-            curl -sL https://raw.githubusercontent.com/scaleway/scaleway-cli/main/install.sh | bash
-            sudo mv ./scw /usr/local/bin/scw
+            curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
             scw version
       - run:
           name: Authenticate with Scaleway
@@ -31,6 +30,7 @@ jobs:
             scw config set access-key $SCW_ACCESS_KEY
             scw config set secret-key $SCW_SECRET_KEY
             scw config set default-region $SCW_DEFAULT_REGION
+            scw config set default-project-id $SCW_DEFAULT_PROJECT_ID
       - run:
           name: Build and package function
           command: |
